@@ -32,7 +32,7 @@ def get_fruityvice_data(this_fruit_choice):
     return fruityvice_normalized
 
 #New section
-streamlit.header("Fruityvice Fruit Advice!")
+  streamlit.header("Fruityvice Fruit Advice!")
 try:
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
   if not fruit_choice:
@@ -43,7 +43,7 @@ try:
 except URLError as e:
     
 
-
+#Snowflake-related functions
 streamlit.header("The fruit load list contains:")
 #Snowflake-related functions
 def get_fruit_load_list():
@@ -51,4 +51,8 @@ def get_fruit_load_list():
     my_cur.execute("select * from fruit_load_list")  
     return my_cur.fetchall()
 
-
+#add a button
+if streamlit.button("Get fruit Load List"):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  my_data_rows = get_fruit_load_list()
+  streamlit.dataframe(my_data_rows)
